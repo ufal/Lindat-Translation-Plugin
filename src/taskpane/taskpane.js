@@ -1,43 +1,41 @@
 document.getElementById("translateCsEn").addEventListener("click", translateSelection)
 
 function translateSelection() {
-	Word.run(function (context) {
-			const doc = context.document
-			let originalRange = doc.getSelection()
-			originalRange.load("text")
+	Word.run((context) => {
+		const doc = context.document
+		let originalRange = doc.getSelection()
+		originalRange.load("text")
 
-			return context.sync()
-				.then(function () {
-					sendToLindatAPI("cs", "en", originalRange.text)
-						.then(response => response.text())
-						.then(data => {
-							data = data.replace(/\s+$/g, '') // replace newline on end
-							doc.body.insertParagraph(data, "End")
-						})
-						.then(context.sync)
-						.catch((error) => {
-							console.error('Error:', error)
-						})
-
-				})
-		})
-		.catch(function (error) {
-			console.log("Error: " + error)
-			if (error instanceof OfficeExtension.Error) {
-				console.log("Debug info: " + JSON.stringify(error.debugInfo))
-			}
-		})
+		return context.sync()
+			.then(() => {
+				sendToLindatAPI("cs", "en", originalRange.text)
+					.then(response => response.text())
+					.then(data => {
+						data = data.replace(/\s+$/g, '') // replace newline on end
+						doc.body.insertParagraph(data, "End")
+					})
+					.then(context.sync)
+					.catch((error) => {
+						console.error('Error:', error)
+					})
+			})
+	})
+	.catch((error) => {
+		console.log("Error: " + error)
+		if (error instanceof OfficeExtension.Error) {
+			console.log("Debug info: " + JSON.stringify(error.debugInfo))
+		}
+	})
 }
 
 function sendToLindatAPI(src, tgt, input_text) {
-	const url = "https://lindat.mff.cuni.cz/services/translation/api/v2/languages/";
+	const url = "https://lindat.mff.cuni.cz/services/translation/api/v2/languages/"
 
 	const formData = {
 		src,
 		tgt,
 		input_text,
 	}
-
 
 	let formBody = [];
 	for (let property in formData) {
@@ -57,5 +55,5 @@ function sendToLindatAPI(src, tgt, input_text) {
 		body: formBody
 	})
 
-	return response;
+	return response
 }
