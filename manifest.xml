@@ -6,8 +6,8 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Lindat Translation"/>
   <Description DefaultValue="A template to get started."/>
-  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
+  <IconUrl DefaultValue="https://localhost:3000/assets/lindatIcon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/lindatIcon-64.png"/>
   <SupportUrl DefaultValue="https://www.contoso.com/help"/>
   <AppDomains>
     <AppDomain>https://www.contoso.com</AppDomain>
@@ -34,26 +34,66 @@
               <Group id="CommandsGroup">
                 <Label resid="CommandsGroup.Label"/>
                 <Icon>
-                  <bt:Image size="16" resid="Icon.16x16"/>
-                  <bt:Image size="32" resid="Icon.32x32"/>
-                  <bt:Image size="80" resid="Icon.80x80"/>
+                  <bt:Image size="16" resid="LindatIcon-16"/>
+                  <bt:Image size="32" resid="LindatIcon-32"/>
+                  <bt:Image size="80" resid="LindatIcon-80"/>
                 </Icon>
-                <Control xsi:type="Button" id="TaskpaneButton">
-                  <Label resid="TaskpaneButton.Label"/>
+
+
+                <Control xsi:type="Button" id="UDPipeButton">
+                  <Label resid="UDPipeButton.Label"/>
                   <Supertip>
-                    <Title resid="TaskpaneButton.Label"/>
-                    <Description resid="TaskpaneButton.Tooltip"/>
+                    <Title resid="UDPipeButton.Label"/>
+                    <Description resid="UDPipeButton.Tooltip"/>
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="Icon.16x16"/>
-                    <bt:Image size="32" resid="Icon.32x32"/>
-                    <bt:Image size="80" resid="Icon.80x80"/>
+                    <bt:Image size="16" resid="UDPipeIcon-16"/>
+                    <bt:Image size="32" resid="UDPipeIcon-32"/>
+                    <bt:Image size="80" resid="UDPipeIcon-80"/>
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
-                    <TaskpaneId>ButtonId1</TaskpaneId>
-                    <SourceLocation resid="Taskpane.Url"/>
+                    <TaskpaneId>UDPipeIcon</TaskpaneId>
+                    <SourceLocation resid="UDPipeIcon.Url"/>
                   </Action>
                 </Control>
+
+
+                <Control xsi:type="Button" id="NameTagButton">
+                  <Label resid="NameTagButton.Label"/>
+                  <Supertip>
+                    <Title resid="NameTagButton.Label"/>
+                    <Description resid="NameTagButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="NameTagIcon-16"/>
+                    <bt:Image size="32" resid="NameTagIcon-32"/>
+                    <bt:Image size="80" resid="NameTagIcon-80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>NameTag</TaskpaneId>
+                    <SourceLocation resid="NameTag.Url"/>
+                  </Action>
+                </Control>
+
+
+                <Control xsi:type="Button" id="UWebASRButton">
+                  <Label resid="UWebASRButton.Label"/>
+                  <Supertip>
+                    <Title resid="UWebASRButton.Label"/>
+                    <Description resid="UWebASRButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="UWebASRIcon-16"/>
+                    <bt:Image size="32" resid="UWebASRIcon-32"/>
+                    <bt:Image size="80" resid="UWebASRIcon-80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>UWebASR</TaskpaneId>
+                    <SourceLocation resid="UWebASR.Url"/>
+                  </Action>
+                </Control>
+
+
               </Group>
             </OfficeTab>
           </ExtensionPoint>
@@ -62,23 +102,47 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
-        <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
-        <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+        <bt:Image id="LindatIcon-16" DefaultValue="https://localhost:3000/assets/lindatIcon-16.png"/>
+        <bt:Image id="LindatIcon-32" DefaultValue="https://localhost:3000/assets/lindatIcon-32.png"/>
+        <bt:Image id="LindatIcon-80" DefaultValue="https://localhost:3000/assets/lindatIcon-80.png"/>
+        
+        <bt:Image id="UDPipeIcon-16" DefaultValue="https://localhost:3000/assets/UDPipeIcon-16.png"/>
+        <bt:Image id="UDPipeIcon-32" DefaultValue="https://localhost:3000/assets/UDPipeIcon-32.png"/>
+        <bt:Image id="UDPipeIcon-80" DefaultValue="https://localhost:3000/assets/UDPipeIcon-80.png"/>
+        
+        <bt:Image id="NameTagIcon-16" DefaultValue="https://localhost:3000/assets/NameTagIcon-16.png"/>
+        <bt:Image id="NameTagIcon-32" DefaultValue="https://localhost:3000/assets/NameTagIcon-32.png"/>
+        <bt:Image id="NameTagIcon-80" DefaultValue="https://localhost:3000/assets/NameTagIcon-80.png"/>
+        
+        <bt:Image id="UWebASRIcon-16" DefaultValue="https://localhost:3000/assets/UWebASRIcon-16.png"/>
+        <bt:Image id="UWebASRIcon-32" DefaultValue="https://localhost:3000/assets/UWebASRIcon-32.png"/>
+        <bt:Image id="UWebASRIcon-80" DefaultValue="https://localhost:3000/assets/UWebASRIcon-80.png"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812"/>
         <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html"/>
         <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
+        <bt:Url id="UDPipe.Url" DefaultValue="https://localhost:3000/udpipe.html"/>
+        <bt:Url id="NameTag.Url" DefaultValue="https://localhost:3000/nametag.html"/>
+        <bt:Url id="UWebASR.Url" DefaultValue="https://localhost:3000/uwebasr.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
+                <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
         <bt:String id="CommandsGroup.Label" DefaultValue="Commands Group"/>
         <bt:String id="TaskpaneButton.Label" DefaultValue="Show Taskpane"/>
+        <bt:String id="GetStarted.Title" DefaultValue="LINDAT plugin"/>
+        <bt:String id="CommandsGroup.Label" DefaultValue="LINDAT"/>
+        <bt:String id="UDPipeButton.Label" DefaultValue="UDPipe"/>
+        <bt:String id="NameTagButton.Label" DefaultValue="NameTag"/>
+        <bt:String id="UWebASRButton.Label" DefaultValue="UWebASR"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="GetStarted.Description" DefaultValue="Your sample add-in loaded succesfully. Go to the HOME tab and click the 'Show Taskpane' button to get started."/>
         <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Show a Taskpane"/>
+        <bt:String id="GetStarted.Description" DefaultValue="LINDAT plugin installed successfully"/>
+        <bt:String id="UDPipeButton.Tooltip" DefaultValue="Click to open UDPipe"/>
+        <bt:String id="NameTagButton.Tooltip" DefaultValue="Click to open NameTag"/>
+        <bt:String id="UWebASRButton.Tooltip" DefaultValue="Click to open UWebASR"/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>

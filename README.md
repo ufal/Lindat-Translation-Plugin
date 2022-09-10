@@ -6,6 +6,7 @@ Powershell
 ```
 git clone https://github.com/ufal/Lindat-Translation-Plugin.git
 cd '.\Lindat-Translation-Plugin\'
+# taskkill /IM msedgewebview2.exe /F # may help if previous instance was not closed properly
 npm i
 npm start
 ```
