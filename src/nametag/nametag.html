@@ -6,13 +6,36 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>LINDAT NameTag</title>
 
+	<link href="../default.css" rel="stylesheet" type="text/css"/>
 	<link href="main.css" rel="stylesheet" type="text/css"/>
 
 </head>
 
 <body class="ms-font-m ms-welcome ms-Fabric">
 
-	<button id="translateCsEn">Translate cs -> en</button>
+	<header>NameTag</header>
+
+	<div class="grid">
+		<button>Recognize</button>
+		<button>Create image</button>
+		<button>Identify</button>
+	</div>
+
+	<div>
+		NameTag is an open-source tool for named entity recognition (NER). NameTag identifies proper names in text and classifies them into predefined categories, such as names of persons, locations, organizations, etc.
+		<br/>
+		NameTag 2 also recognizes nested named entities (nested NER) and as of 2019, it achieves state of the art in Czech, English, Dutch and Spanish and nearly state of the art in German (Straková et al. 2019).
+		<br/>
+		NameTag is available as an online demo NameTag Online Demo and web service NameTag Web Service hosted by LINDAT/CLARIN.
+		<br/>
+		The linguistic models are free for non-commercial use and distributed under CC BY-NC-SA license, although for some models the original data used to create the model may impose additional licensing conditions.
+		<br/>
+		NameTag is versioned using Semantic Versioning.
+		<br/>
+		Copyright 2020 by Institute of Formal and Applied Linguistics, Faculty of Mathematics and Physics, Charles University in Prague, Czech Republic.
+		<br/>
+		Description of the available methods is available in the API Documentation. The NameTag 1 models described in the NameTag User's Manual, the NameTag 2 models are described in the NameTag 2 Models.
+	</div>
 
 	<div id="log"></div>
 

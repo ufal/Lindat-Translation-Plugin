@@ -13,3 +13,5 @@ npm start
 Now you should see opened Word document with button at right up.
 After you press it, Lindat plugin window will open.
 From here you can try various buttons.
+
+<img src="demopicture.png" height="500px">

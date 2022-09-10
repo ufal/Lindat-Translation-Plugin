@@ -1,0 +1,35 @@
+html, body{
+    min-height: 100%;
+    padding: 0;
+}
+
+header{
+    height: 50px;
+    text-align: center;
+    font-size: 25pt;
+    background-color: #39688b;
+    line-height: 50px;
+    color: #ffffff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.grid{
+    display: grid;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.grid button{
+    min-height: 50px;
+    max-width: 300px;
+    background-color: #83b6dd;
+    cursor: pointer;
+    border: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.12);
+}
+
+.grid button:hover{
+    background-color: #5a97c6;
+}

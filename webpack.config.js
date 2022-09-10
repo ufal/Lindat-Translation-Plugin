@@ -19,7 +19,9 @@ module.exports = async (env, options) => {
     devtool: "source-map",
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
-      taskpane: "./src/taskpane/taskpane.js",
+      udpipe: "./src/udpipe/main.js",
+      nametag: "./src/nametag/main.js",
+      uwebasr: "./src/uwebasr/main.js",
       commands: "./src/commands/commands.js",
     },
     output: {
@@ -57,9 +59,19 @@ module.exports = async (env, options) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        filename: "taskpane.html",
-        template: "./src/taskpane/taskpane.html",
-        chunks: ["polyfill", "taskpane"],
+        filename: "udpipe.html",
+        template: "./src/udpipe/udpipe.html",
+        chunks: ["polyfill", "udpipe"],
+      }),
+      new HtmlWebpackPlugin({
+        filename: "nametag.html",
+        template: "./src/nametag/nametag.html",
+        chunks: ["polyfill", "nametag"],
+      }),
+      new HtmlWebpackPlugin({
+        filename: "uwebasr.html",
+        template: "./src/uwebasr/uwebasr.html",
+        chunks: ["polyfill", "uwebasr"],
       }),
       new CopyWebpackPlugin({
         patterns: [
