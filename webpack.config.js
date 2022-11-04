@@ -21,7 +21,7 @@ module.exports = async (env, options) => {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
       udpipe: "./src/udpipe/main.js",
       nametag: "./src/nametag/main.js",
-      uwebasr: "./src/uwebasr/main.js",
+      translator: "./src/translator/main.js",
       commands: "./src/commands/commands.js",
     },
     output: {
@@ -69,9 +69,9 @@ module.exports = async (env, options) => {
         chunks: ["polyfill", "nametag"],
       }),
       new HtmlWebpackPlugin({
-        filename: "uwebasr.html",
-        template: "./src/uwebasr/uwebasr.html",
-        chunks: ["polyfill", "uwebasr"],
+        filename: "translator.html",
+        template: "./src/translator/translator.html",
+        chunks: ["polyfill", "translator"],
       }),
       new CopyWebpackPlugin({
         patterns: [
