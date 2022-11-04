@@ -1,8 +1,9 @@
 Plugin for MS Word.
 
-Dev install and run:
---------------------
+## Dev install and run:
+
 Powershell
+
 ```
 git clone https://github.com/ufal/Lindat-Translation-Plugin.git
 cd '.\Lindat-Translation-Plugin\'
