@@ -1,35 +1,100 @@
 Office.onReady(() => {
   // If needed, Office.js is ready to be called
-  document.getElementById("translateCsEn").addEventListener("click", translateSelection);
+  officeReady = true;
 });
 
-const console = {
-  log: (data) => {
-    document.getElementById("log").innerHTML += "<br/>" + new Date().toLocaleTimeString() + ": " + JSON.stringify(data);
-  },
-  error: (data) => {
-    document.getElementById("log").innerHTML +=
-      "<br/>" + new Date().toLocaleTimeString() + ": " + "<p style='color: red'>" + JSON.stringify(data) + "</p>";
-  },
+let activeModel = null;
+let officeReady = false;
+let inputType = "selection";
+
+window.onload = () => {
+  loadModels();
+  document.getElementById("modelSelector").addEventListener("change", (e) => {
+    activeModel = e.target.value;
+  });
+  document.getElementById("recognizeButton").addEventListener("click", recognize);
+  document.getElementById("userSelectionInputType").addEventListener("click", () => {
+    inputType = "selection";
+    document.getElementById("inputFieldContainer").style.display = "none";
+    document.getElementById("selectionContainer").style.display = "block";
+    document.getElementById("errorMessage").innerText = "Please select some text first.";
+  });
+  document.getElementById("inputFieldInputType").addEventListener("click", () => {
+    inputType = "field";
+    document.getElementById("inputFieldContainer").style.display = "block";
+    document.getElementById("selectionContainer").style.display = "none";
+    document.getElementById("errorMessage").innerText = "Please insert some text first.";
+  });
 };
 
-function translateSelection() {
-  console.log("here");
+function loadModels() {
+  const modelsUrl = "https://lindat.mff.cuni.cz/services/nametag/api/models";
+  fetch(modelsUrl, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data?.length === 0) return;
+      const activeModels = Object.keys(data.models);
+      activeModel = activeModels
+        .filter((item) => item.includes("czech"))
+        .filter((item) => !item.includes("no_numbers"))
+        .map((item) => {
+          const a = item.split("-");
+          return [item, a[a.length - 1]];
+        })
+        .sort((a, b) => b[1] - a[1])?.[0]?.[0];
+
+      if (!activeModel) {
+        activeModel = Object.keys(data.models)[0];
+      }
+      document.getElementById("modelSelector").innerText = "";
+      activeModels.forEach((item, index) => {
+        const newOption = document
+          .getElementById("modelSelector")
+          .appendChild(document.createElement("option", { key: index, value: item, selected: activeModel === item }));
+        newOption.appendChild(document.createTextNode(item));
+      });
+    })
+    .catch((error) => {
+      // todo handle no internet
+      console.error(error);
+    });
+}
+
+function recognize() {
   Word.run((context) => {
     const doc = context.document;
     let originalRange = doc.getSelection();
     originalRange.load("text");
 
     return context.sync().then(() => {
-      sendToLindatAPI("cs", "en", originalRange.text)
+      const inputData =
+        inputType === "selection" ? originalRange.text : document.getElementById("inputDataTextarea").value;
+
+      document.getElementById("errorMessage").style.display = inputData.length === 0 ? "block" : "none";
+
+      if (inputData.length === 0) {
+        return;
+      }
+
+      sendToLindatAPI(inputData)
         .then((response) => {
-          console.log(response);
-          return response.text();
+          console.log("response", response);
+          return response.json();
         })
         .then((data) => {
-          console.log(data);
-          data = data.replace(/\s+$/g, ""); // replace newline on end
-          for (let row of data.split("\r")) doc.body.insertParagraph(row, "End");
+          data = data.result.split("\n").map((item) => item.split("\t"));
+          data.pop();
+
+          if (inputType === "selection") {
+            insertResultToTable(data);
+          } else {
+            insertResultToTable(data);
+          }
+
+          //data = data.replace(/\s+$/g, ""); // replace newline on end
+          //for (let row of data.split("\r")) doc.body.insertParagraph(row, "End");
         })
         .then(context.sync)
         .catch((error) => {
@@ -44,34 +109,44 @@ function translateSelection() {
   });
 }
 
-function sendToLindatAPI(src, tgt, input_text) {
-  let url = "https://lindat.mff.cuni.cz/services/translation/api/v2/languages/";
+function insertResultToTable(data) {
+  document.getElementById("outputTable").innerHTML = [["Range", "Entity Type", "Entity Text"], ...data]
+    .map(
+      (item, index) => `
+  <tr>
+    <${index == 0 ? "th" : "td"}>${item[0]}</${index == 0 ? "th" : "td"}>
+    <${index == 0 ? "th" : "td"}>${item[1]}</${index == 0 ? "th" : "td"}>
+    <${index == 0 ? "th" : "td"}>${item[2]}</${index == 0 ? "th" : "td"}>
+  </tr>
+`
+    )
+    .join("");
+}
 
-  // hofix becaouse LINDAT doesn have 'Access-Control-Allow-Origin' header
-  //url = `https://quest.ms.mff.cuni.cz/prak/cors/${url}`
+function selectionLoad() {}
 
-  const formData = {
-    src,
-    tgt,
-    input_text,
-  };
+function sendToLindatAPI(data) {
+  let url = "https://lindat.mff.cuni.cz/services/nametag/api/recognize";
 
-  let formBody = [];
-  for (let property in formData) {
-    const encodedKey = encodeURIComponent(property);
-    const encodedValue = encodeURIComponent(formData[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
+  if (activeModel == null) {
+    return;
   }
-  formBody = formBody.join("&");
 
-  const headers = {
-    "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+  const formDataValues = {
+    model: activeModel,
+    data,
+    input: "untokenized",
+    output: "vertical",
   };
+
+  const formData = new FormData();
+  for (let property in formDataValues) {
+    formData.append(property, formDataValues[property]);
+  }
 
   const response = fetch(url, {
     method: "POST",
-    body: formBody,
-    headers,
+    body: formData,
   });
 
   return response;

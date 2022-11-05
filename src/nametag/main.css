@@ -5,3 +5,35 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.inputTypeSelection{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 5px;
+}
+
+.closeButton{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+
+  background: #e2e2e2;
+  border-radius: 6px;
+
+  cursor: pointer;
+
+
+  text-align: center;
+  line-height: 20px;
+}
+
+#recognizeButton{
+  max-width: none;
+  min-height: 60px;
+}
+
+#outputTable{
+  width: 100%;
+}

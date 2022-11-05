@@ -18,10 +18,9 @@ module.exports = async (env, options) => {
   const config = {
     devtool: "source-map",
     entry: {
-      polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
-      udpipe: "./src/udpipe/main.js",
-      nametag: "./src/nametag/main.js",
-      translator: "./src/translator/main.js",
+      udpipe: ["./src/js/bootstrap.bundle.min.js", "./src/udpipe/main.js", "./src/js/default.js"],
+      nametag: ["./src/js/bootstrap.bundle.min.js", "./src/nametag/main.js", "./src/js/default.js"],
+      translator: ["./src/js/bootstrap.bundle.min.js", "./src/translator/main.js", "./src/js/default.js"],
       commands: "./src/commands/commands.js",
     },
     output: {

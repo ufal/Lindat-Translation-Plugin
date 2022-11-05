@@ -1,0 +1,27 @@
+html,
+body {
+  min-height: 100%;
+  width: 100%;
+  padding: 0;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+header {
+  height: 50px;
+  text-align: center;
+  font-size: 20pt;
+  background-color: #39688b;
+  line-height: 50px;
+  color: #ffffff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.grid {
+  width: 100%;
+  
+  padding: 5px;
+  margin-top: 10px;
+  
+  display: grid;
+  gap: 10px;
+}
